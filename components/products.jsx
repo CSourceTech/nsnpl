@@ -24,7 +24,7 @@ export function ProductListing() {
                 </p>
                 <div className="flex flex-col md:flex-row gap-8">
                     {filteredProducts.map((product) => (
-                        <div key={product.id} className="border rounded-lg w-96 mx-auto">
+                        <div key={product.id} className="border rounded-lg md:w-96 mx-auto">
                             <div className="">
                                 <img
                                     src={product.image}

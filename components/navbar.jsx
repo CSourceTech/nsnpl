@@ -60,7 +60,10 @@ export function Navbar() {
                         <Button variant="ghost" className="ml-2" asChild>
                             <Link href="/cart" className="relative">
                                 <ShoppingCart className="h-5 w-5" />
-                                <span className="absolute top-1 right-1 px-1 text-xs bg-green-500 text-white rounded-full">{totalQuantity}</span>
+                                {totalQuantity > 0 &&
+                                    <span className="absolute top-0 right-0 px-1 text-xs bg-green-500 text-white rounded-full">{totalQuantity}
+                                    </span>
+                                }
                             </Link>
                         </Button>
                     </div>
@@ -75,7 +78,7 @@ export function Navbar() {
 
             {isOpen && (
                 <div className="sm:hidden">
-                    <div className="pt-2 pb-3 space-y-1">
+                    <div className="pt-2 pb-3 space-y-1 text-white">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className="w-full text-left">Products</Button>
@@ -83,7 +86,7 @@ export function Navbar() {
                             <DropdownMenuContent>
                                 {products.map((product) => (
                                     <DropdownMenuItem key={product.name}>
-                                        <Link href={product.href}>{product.name}</Link>
+                                        <Link href='/shop'>{product.name}</Link>
                                     </DropdownMenuItem>
                                 ))}
                             </DropdownMenuContent>
@@ -93,20 +96,25 @@ export function Navbar() {
                         </Button>
                         {session ? (
                             <Button
-                                variant="outline"
-                                className="w-full mt-2"
+                                variant="ghost"
                                 onClick={() => signOut()}
-                            >Logout</Button>
+                            >{session?.user?.name}</Button>
                         ) : (
                             <Button
-                                variant="outline"
-                                className="w-full mt-2"
+                                variant="ghost"
                                 onClick={() => signIn("google")}
                             >Login</Button>
                         )}
                         <Button variant="ghost" className="w-full mt-2" asChild>
                             <Link href="/cart" className="flex gap-2 items-center justify-center">
-                                <ShoppingCart className="h-5 w-5 mr-2" />
+                                <div className="relative">
+                                    <ShoppingCart className="h-5 w-5 mr-2" />
+                                    {totalQuantity > 0 &&
+                                        <span className="absolute top-0 right-0 px-1 text-xs bg-green-500 text-white rounded-full">{totalQuantity}
+                                        </span>
+                                    }
+
+                                </div>
                                 Cart
                             </Link>
                         </Button>

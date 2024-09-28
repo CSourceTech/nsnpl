@@ -40,37 +40,43 @@ export default function CartPage() {
             <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
             <div className="space-y-8">
                 {cartItems.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-4 border-b pb-4">
-                        <img src={item?.image} alt={item?.name} width={80} height={80} className="rounded-md" />
-                        <div className="flex-grow">
-                            <h3 className="font-semibold">{item.name}</h3>
-                            <p className="text-gray-600">{item.price.toFixed(2)} ₹</p>
+                    <div key={item.id} className="flex items-center justify-between space-x-4 border-b pb-4">
+                        <div className="flex flex-col md:flex-row md:gap-5 items-center">
+                            <img src={item?.image} alt={item?.name} width={80} height={80} className="rounded-md" />
+                            <div className="flex-grow">
+                                <h3 className="font-semibold">{item.name}</h3>
+                                <p className="text-gray-600">{item.price.toFixed(2)} ₹</p>
+                            </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                            <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => reduceItem(item.id)}
-                            >
-                                -
-                            </Button>
-                            <span>{item.quantity}</span>
-                            <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => addItem(item)}
-                            >
-                                +
-                            </Button>
+                        <div className="flex flex-col md:flex-row items-center md:gap-12">
+                            <div className="flex items-center space-x-2">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => reduceItem(item.id)}
+                                >
+                                    -
+                                </Button>
+                                <span>{item.quantity}</span>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => addItem(item)}
+                                >
+                                    +
+                                </Button>
+                            </div>
+                            <div className="flex items-center">
+                                <p className="font-semibold">{(item.price * item.quantity).toFixed(2)} ₹</p>
+                                <Button variant="ghost" size="icon" onClick={() => removeItem(item.id)}>
+                                    <Trash2 className="h-5 w-5" />
+                                </Button>
+                            </div>
                         </div>
-                        <p className="font-semibold">{(item.price * item.quantity).toFixed(2)} ₹</p>
-                        <Button variant="ghost" size="icon" onClick={() => removeItem(item.id)}>
-                            <Trash2 className="h-5 w-5" />
-                        </Button>
                     </div>
                 ))}
             </div>
-            <div className="mt-8 flex justify-between items-center">
+            <div className="mt-8 flex justify-between items-center flex-col md:flex-row gap-y-3">
                 <div>
                     <p className="text-lg font-semibold">Total: {total.toFixed(2)} ₹</p>
                     <p className="text-sm text-gray-600">Shipping and taxes calculated at checkout</p>
