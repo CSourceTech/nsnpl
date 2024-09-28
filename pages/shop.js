@@ -2,15 +2,20 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { products } from '@/data/products'
+import { useDispatch } from 'react-redux'
+import { addItemToCart } from '@/redux/cart-slice'
 
 export default function ShopPage() {
     const [searchTerm, setSearchTerm] = useState("")
-    const [categoryFilter, setCategoryFilter] = useState("All")
+    const dispatch = useDispatch()
 
     const filteredProducts = products.filter(product =>
-        (categoryFilter === "All" || product.category === categoryFilter) &&
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
+
+    const addToCartHandler = (product) => {
+        dispatch(addItemToCart(product))
+    }
 
     return (
         <main className=''>
@@ -43,7 +48,7 @@ export default function ShopPage() {
                             <img
                                 src={product.image}
                                 alt={product.name}
-                                
+
                                 className="p-3 w-80"
                             />
                             <div className="p-4">
@@ -58,7 +63,13 @@ export default function ShopPage() {
                                             ₹{product.price.toFixed(2)}
                                         </span>
                                     </div>
-                                    <Button className="bg-green-500 hover:bg-green-600">Add to Cart</Button>
+                                    <Button
+                                        className="bg-green-500 hover:bg-green-600"
+                                        onClick={() => addToCartHandler(product)}
+                                    >
+                                        Add to Cart
+
+                                    </Button>
                                 </div>
                             </div>
                         </div>

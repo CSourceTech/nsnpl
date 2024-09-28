@@ -9,18 +9,13 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useSession, signIn, signOut } from 'next-auth/react'
-
-const products = [
-    { name: "Painkiller Plus", href: "/products/painkiller-plus" },
-    { name: "Allergy Relief", href: "/products/allergy-relief" },
-    { name: "Cold & Flu Fighter", href: "/products/cold-flu-fighter" },
-    { name: "Digestive Health", href: "/products/digestive-health" },
-    { name: "Sleep Aid", href: "/products/sleep-aid" },
-]
+import { useSelector } from 'react-redux'
+import { products } from '@/data/products'
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
     const { data: session } = useSession()
+    const totalQuantity = useSelector((state) => state.cart.totalQuantity);
 
     return (
         <nav className="bg-black/40 backdrop-blur-md fixed z-50 top-0 left-0 right-0 shadow-lg">
@@ -41,7 +36,7 @@ export function Navbar() {
                             <DropdownMenuContent>
                                 {products.map((product) => (
                                     <DropdownMenuItem key={product.name}>
-                                        <Link href={product.href}>{product.name}</Link>
+                                        <Link href='/shop'>{product.name}</Link>
                                     </DropdownMenuItem>
                                 ))}
                             </DropdownMenuContent>
@@ -63,7 +58,10 @@ export function Navbar() {
                             >Login</Button>
                         )}
                         <Button variant="ghost" className="ml-2" asChild>
-                            <Link href="/cart"><ShoppingCart className="h-5 w-5" /></Link>
+                            <Link href="/cart" className="relative">
+                                <ShoppingCart className="h-5 w-5" />
+                                <span className="absolute top-1 right-1 px-1 text-xs bg-green-500 text-white rounded-full">{totalQuantity}</span>
+                            </Link>
                         </Button>
                     </div>
                     <div className="-mr-2 flex items-center sm:hidden">

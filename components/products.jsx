@@ -1,9 +1,16 @@
-import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { products } from '@/data/products'
 import Link from 'next/link'
+import { useDispatch } from "react-redux"
+import { addItemToCart } from '@/redux/cart-slice'
 
 export function ProductListing() {
+
+    const dispatch = useDispatch()
+
+    function addToCartHandler(product) {
+        dispatch(addItemToCart(product))
+    }
 
     const filteredProducts = products.slice(0, 4)
 
@@ -35,7 +42,10 @@ export function ProductListing() {
                                         ₹{product.price.toFixed(2)}
                                     </span>
                                 </div>
-                                <Button className="w-full bg-green-500 hover:bg-green-600">
+                                <Button
+                                    className="w-full bg-green-500 hover:bg-green-600"
+                                    onClick={() => addToCartHandler(product)}
+                                >
                                     Add To Cart
                                 </Button>
                             </div>
