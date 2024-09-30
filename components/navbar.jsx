@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, ShoppingCart } from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -11,21 +11,48 @@ import {
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useSelector } from 'react-redux'
 import { products } from '@/data/products'
+import { useRouter } from 'next/router'
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
+    const [scrolled, setScrolled] = useState(false)
     const { data: session } = useSession()
     const totalQuantity = useSelector((state) => state.cart.totalQuantity);
+    const router = useRouter()
+    const isHomePage = router.pathname === '/'
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 700);
+        };
+
+        const handleClickOutside = (event) => {
+            if (navRef.current && !navRef.current.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        };
+
+        if (isHomePage) {
+            window.addEventListener('scroll', handleScroll);
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            if (isHomePage) {
+                window.removeEventListener('scroll', handleScroll);
+            }
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isHomePage]);
 
     return (
-        <nav className="bg-black/40 backdrop-blur-md fixed z-50 top-0 left-0 right-0 shadow-lg">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <nav className={`fixed z-50 top-0 left-0 right-0 shadow-lg ${scrolled ? `bg-black/40 backdrop-blur-md` : `bg-white`}`}>
+            <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${scrolled ? `text-white` : `text-gray-800`}`}>
                 <div className="flex justify-between h-16">
                     <div className="flex">
                         <Link href="/" className="flex-shrink-0 flex items-center">
-                            <span className="text-xl font-bold text-gray-800">
-                                <img src="https://www.shop.nsnpl2health.com/wp-content/uploads/2024/03/Logo_wh.webp" alt="NSNPL" width={250} height={50} />
-                            </span>
+                            <img src="https://www.shop.nsnpl2health.com/wp-content/uploads/2024/03/logo-300x70removebg.png" alt="NSNPL" width={250} height={50} className="py-2" />
                         </Link>
                     </div>
                     <div className="hidden sm:ml-6 sm:flex sm:items-center gap-2">
@@ -36,7 +63,7 @@ export function Navbar() {
                             <DropdownMenuContent>
                                 {products.map((product) => (
                                     <DropdownMenuItem key={product.name}>
-                                        <Link href='/shop'>{product.name}</Link>
+                                        <Link href={`/product/${product.name}`}>{product.name}</Link>
                                     </DropdownMenuItem>
                                 ))}
                             </DropdownMenuContent>
@@ -86,7 +113,7 @@ export function Navbar() {
                             <DropdownMenuContent>
                                 {products.map((product) => (
                                     <DropdownMenuItem key={product.name}>
-                                        <Link href='/shop'>{product.name}</Link>
+                                        <Link href={`/product/${product.name}`}>{product.name}</Link>
                                     </DropdownMenuItem>
                                 ))}
                             </DropdownMenuContent>

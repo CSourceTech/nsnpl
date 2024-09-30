@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { products } from '@/data/products'
 import { useDispatch } from 'react-redux'
 import { addItemToCart } from '@/redux/cart-slice'
+import Link from 'next/link'
 
 export default function ShopPage() {
     const [searchTerm, setSearchTerm] = useState("")
@@ -52,23 +53,31 @@ export default function ShopPage() {
                                 className="p-3 w-80"
                             />
                             <div className="p-4">
-                                <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
-                                <p className="text-gray-600 mb-2">{product.category}</p>
                                 <div className="flex justify-between items-center">
+                                    <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
                                     <div className="flex items-center gap-1">
                                         <span className="text-sm text-red-500 line-through">
-                                            ₹{Math.round((product.price * 1.89) / 100) * 100}
+                                            {product?.originalPrice ? `₹${product?.originalPrice ? product.originalPrice.toFixed(2) : ""}` : ""}
                                         </span>
                                         <span className="text-lg font-bold">
                                             ₹{product.price.toFixed(2)}
                                         </span>
                                     </div>
+                                </div>
+                                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                                     <Button
-                                        className="bg-green-500 hover:bg-green-600"
+                                        className="w-full"
+                                        variant="outline"
                                         onClick={() => addToCartHandler(product)}
                                     >
-                                        Add to Cart
-
+                                        Add To Cart
+                                    </Button>
+                                    <Button
+                                        className="w-full bg-green-500 hover:bg-green-600"
+                                        onClick={() => addToCartHandler(product)}
+                                        asChild
+                                    >
+                                        <Link href={`/cart`}>Buy now</Link>
                                     </Button>
                                 </div>
                             </div>

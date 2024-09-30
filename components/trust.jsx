@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function TrustBanner() {
     return (
@@ -11,7 +12,11 @@ export function TrustBanner() {
                             We source our ingredients from the best suppliers and manufacturers in the industry. We are committed to providing you with the highest quality products.
                         </p>
                     </div>
-                    <Button variant="outline" className="bg-white text-green-600 hover:bg-blue-50">Learn More About Our Process</Button>
+                    <Button variant="outline" className="bg-white text-green-600 hover:bg-blue-50" asChild>
+                        <Link href="/shop">
+                            Learn More About Our Process
+                        </Link>
+                    </Button>
                 </div>
             </div>
         </section>

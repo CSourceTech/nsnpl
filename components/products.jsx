@@ -42,12 +42,22 @@ export function ProductListing() {
                                         ₹{product.price.toFixed(2)}
                                     </span>
                                 </div>
-                                <Button
-                                    className="w-full bg-green-500 hover:bg-green-600"
-                                    onClick={() => addToCartHandler(product)}
-                                >
-                                    Add To Cart
-                                </Button>
+                                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                                    <Button
+                                        className="w-full"
+                                        variant="outline"
+                                        onClick={() => addToCartHandler(product)}
+                                        >
+                                        Add To Cart
+                                    </Button>
+                                    <Button
+                                        className="w-full bg-green-500 hover:bg-green-600"
+                                        onClick={() => addToCartHandler(product)}
+                                        asChild
+                                    >
+                                        <Link href={`/cart`}>Buy now</Link>
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     ))}
