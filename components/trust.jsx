@@ -13,7 +13,7 @@ export function TrustBanner() {
                         </p>
                     </div>
                     <Button variant="outline" className="bg-white text-green-600 hover:bg-blue-50" asChild>
-                        <Link href="/shop">
+                        <Link href="/about">
                             Learn More About Our Process
                         </Link>
                     </Button>

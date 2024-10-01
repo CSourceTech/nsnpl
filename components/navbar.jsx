@@ -29,7 +29,7 @@ export function Navbar() {
 
         const handleClickOutside = (event) => {
             if (navRef.current && !navRef.current.contains(event.target)) {
-                setMenuOpen(false);
+                setIsOpen(false);
             }
         };
 
@@ -52,7 +52,7 @@ export function Navbar() {
             <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${scrolled ? `text-white` : `text-gray-800`}`}>
                 <div className="flex justify-between h-16">
                     <div className="flex">
-                        <Link href="/" className="flex-shrink-0 flex items-center">
+                        <Link href="/" className="flex-shrink-0 flex items-center w-full md:w-3/4">
                             <img src="https://www.shop.nsnpl2health.com/wp-content/uploads/2024/03/logo-300x70removebg.png" alt="NSNPL" width={250} height={50} className="py-2" />
                         </Link>
                     </div>
@@ -104,9 +104,11 @@ export function Navbar() {
                 </div>
             </div>
 
+            {/* Mobile menu */}
+
             {isOpen && (
                 <div className="sm:hidden">
-                    <div className="pt-2 pb-3 space-y-1 text-white">
+                    <div className={`pt-2 pb-3 space-y-1 ${scrolled ? `text-white` : `text-black`}`} ref={navRef}>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className="w-full text-left">Products</Button>
@@ -125,11 +127,13 @@ export function Navbar() {
                         {session ? (
                             <Button
                                 variant="ghost"
+                                className="w-full mt-2"
                                 onClick={() => signOut()}
                             >{session?.user?.name}</Button>
                         ) : (
                             <Button
                                 variant="ghost"
+                                className="w-full mt-2"
                                 onClick={() => signIn("google")}
                             >Login</Button>
                         )}
