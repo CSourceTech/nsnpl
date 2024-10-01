@@ -1,18 +1,11 @@
-import { useState } from 'react'
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { products } from '@/data/products'
 import { useDispatch } from 'react-redux'
 import { addItemToCart } from '@/redux/cart-slice'
 import Link from 'next/link'
 
 export default function ShopPage() {
-    const [searchTerm, setSearchTerm] = useState("")
     const dispatch = useDispatch()
-
-    const filteredProducts = products.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
 
     const addToCartHandler = (product) => {
         dispatch(addItemToCart(product))
@@ -33,18 +26,8 @@ export default function ShopPage() {
             </div>
 
             <div className="mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-                    <Input
-                        type="text"
-                        placeholder="Search products..."
-                        className="mb-4 md:mb-0 md:w-11/12 mx-auto"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
-
                 <div className="flex flex-col md:flex-row flex-wrap justify-center items-center mx-auto gap-10 mb-6">
-                    {filteredProducts.map((product) => (
+                    {products.map((product) => (
                         <div key={product.id} className="border rounded-lg overflow-hidden shadow-lg">
                             <img
                                 src={product.image}
@@ -84,10 +67,6 @@ export default function ShopPage() {
                         </div>
                     ))}
                 </div>
-
-                {filteredProducts.length === 0 && (
-                    <p className="text-center text-gray-600 mt-8">No products found. Try adjusting your search or filter.</p>
-                )}
             </div>
         </main>
     )

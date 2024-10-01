@@ -81,7 +81,7 @@ export function Footer() {
                 </div>
             </div>
             <div className="mt-8 pt-8 border-t border-gray-600 text-center">
-                <p className="text-sm">Copyright © {new Date().getFullYear()} NSNPL. All rights reserved</p>
+                <p className="text-sm">Copyright © {new Date().getFullYear()} Natural Solutions and Neutraceuticals , made with ❤ by Campaigning Source, all rights reserved.</p>
             </div>
         </footer>
     )
