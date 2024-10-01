@@ -24,16 +24,16 @@ export function Footer() {
                             className="mb-4"
                         />
                         <div className="flex space-x-4">
-                            <Link href="#" className="hover:text-gray-300">
+                            <Link href="https://www.facebook.com/share/owJQbNqeKNgzzVd9/?mibextid=qi2Omg" className="hover:text-gray-300">
                                 <Facebook size={24} />
                             </Link>
-                            <Link href="#" className="hover:text-gray-300">
+                            <Link href="https://www.instagram.com/nsnpl?igsh=MTE2dDM2b21xejIyMw==" className="hover:text-gray-300">
                                 <Instagram size={24} />
                             </Link>
-                            <Link href="#" className="hover:text-gray-300">
+                            <Link href="https://www.linkedin.com/company/natural-solutions-and-nutraceuticals/" className="hover:text-gray-300">
                                 <Linkedin size={24} />
                             </Link>
-                            <Link href="#" className="hover:text-gray-300">
+                            <Link href="https://wa.me/9167995442F" className="hover:text-gray-300">
                                 <WhatsApp size={24} />
                             </Link>
                         </div>

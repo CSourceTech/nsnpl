@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Menu, X, ShoppingCart } from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -20,6 +20,7 @@ export function Navbar() {
     const totalQuantity = useSelector((state) => state.cart.totalQuantity);
     const router = useRouter()
     const isHomePage = router.pathname === '/'
+    const navRef = useRef(null)
 
     useEffect(() => {
         const handleScroll = () => {
