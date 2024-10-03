@@ -70,12 +70,12 @@ export function Footer() {
                     <div>
                         <h3 className="text-lg font-semibold mb-4">Important Links</h3>
                         <ul className="space-y-2 text-sm">
-                            <li><Link href="#" className="hover:underline">Return and Refund Policy</Link></li>
-                            <li><Link href="#" className="hover:underline">Cancellation Policy</Link></li>
-                            <li><Link href="#" className="hover:underline">Privacy Policy</Link></li>
-                            <li><Link href="#" className="hover:underline">Disclaimer</Link></li>
-                            <li><Link href="#" className="hover:underline">Shipping Policy</Link></li>
-                            <li><Link href="#" className="hover:underline">Terms and Policy</Link></li>
+                            <li><Link href="/return" className="hover:underline">Return and Refund Policy</Link></li>
+                            <li><Link href="/cancellation" className="hover:underline">Cancellation Policy</Link></li>
+                            <li><Link href="/privacy" className="hover:underline">Privacy Policy</Link></li>
+                            <li><Link href="/disclaimer" className="hover:underline">Disclaimer</Link></li>
+                            <li><Link href="/shipping" className="hover:underline">Shipping Policy</Link></li>
+                            <li><Link href="/terms" className="hover:underline">Terms and Policy</Link></li>
                         </ul>
                     </div>
                 </div>
