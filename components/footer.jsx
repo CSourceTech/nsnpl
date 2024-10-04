@@ -33,7 +33,7 @@ export function Footer() {
                             <Link href="https://www.linkedin.com/company/natural-solutions-and-nutraceuticals/" className="hover:text-gray-300">
                                 <Linkedin size={24} />
                             </Link>
-                            <Link href="https://wa.me/9167995442F" className="hover:text-gray-300">
+                            <Link href="https://wa.me/9167995442" className="hover:text-gray-300">
                                 <WhatsApp size={24} />
                             </Link>
                         </div>
