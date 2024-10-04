@@ -7,7 +7,7 @@ export function Hero() {
             <div
                 className="absolute inset-0 bg-cover bg-center z-0"
                 style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+                    backgroundImage: "url('https://r4.wallpaperflare.com/wallpaper/858/649/116/bowl-kettle-pitcher-glass-medicine-hd-wallpaper-1e60b62c6d5a97c13a6f84fe9e059dda.jpg')",
                 }}
             ></div>
             <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
