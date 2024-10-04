@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { useDispatch } from 'react-redux'
 import { addItemToCart } from '@/redux/cart-slice'
 import Link from "next/link"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function ProductPage({ product }) {
     const dispatch = useDispatch()
@@ -18,6 +20,12 @@ export default function ProductPage({ product }) {
             top: desc.offsetTop - 100,
             behavior: "smooth"
         })
+    }
+
+    const formatDetailedDescription = (detailedDescription) => {
+        return detailedDescription.split("\n").map((line, i) => (
+            <p key={i}>{line}</p>
+        ))
     }
 
     const reviews = [
@@ -82,29 +90,73 @@ export default function ProductPage({ product }) {
             </div>
 
             {/* product desc */}
-            <section id="desc">
-                <h2 className="text-2xl font-bold mt-12 mb-4">Product Description</h2>
-                <p className="text-gray-600">{product.description}</p>
-            </section>
+            <section id="desc" className="w-full mt-12">
+                <Tabs defaultValue="description" className="max-w-6xl mx-auto">
+                    <TabsList className="mx-auto flex justify-center gap-y-2 flex-col sm:flex-row w-fit">
+                        <TabsTrigger value="description">Description</TabsTrigger>
+                        <TabsTrigger value="information">Additional Information</TabsTrigger>
+                        <TabsTrigger value="reviews">Customer Reviews</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="description" className="mt-12 sm:mt-2">
+                        <Card className="max-w-3xl mx-auto">
+                            <CardHeader>
+                                <CardTitle>Description</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p>{product.description}</p>
 
-            <div className="mt-12">
-                <h2 className="text-2xl font-bold mb-4">Customer Reviews</h2>
-                <div className="space-y-4">
-                    {reviews.map((review) => (
-                        <div key={review.id} className="bg-white rounded-lg shadow p-4">
-                            <div className="flex items-center mb-2">
-                                <div className="flex">
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star key={i} className={`w-4 h-4 ${i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} />
+                                {product.detailedDescription && (
+                                    <div className="mt-4">
+                                        {formatDetailedDescription(product.detailedDescription)}
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent value="information" className="mt-12 sm:mt-2">
+                        <Card className="md:max-w-4xl mx-auto w-full">
+                            <CardHeader>
+                                <CardTitle>Additional Information</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <ul>
+                                    {Object.entries(product?.additionalInfo).map(([key, value]) => (
+                                        <li key={key} className="flex justify-between gap-4">
+                                            <>{key.slice(0, 1).toUpperCase() + key.slice(1)}:</>
+                                            <span>{value}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent value="reviews" className="mt-12 sm:mt-2">
+                        <Card className="max-w-3xl mx-auto">
+                            <CardHeader>
+                                <CardTitle>Customer Reviews</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-4">
+                                    {reviews.map((review) => (
+                                        <div key={review.id} className="bg-white rounded-lg shadow p-4">
+                                            <div className="flex items-center mb-2">
+                                                <div className="flex">
+                                                    {[...Array(5)].map((_, i) => (
+                                                        <Star key={i} className={`w-4 h-4 ${i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} />
+                                                    ))}
+                                                </div>
+                                                <span className="ml-2 font-semibold">{review.author}</span>
+                                            </div>
+                                            <p className="text-gray-600">{review.comment}</p>
+                                        </div>
                                     ))}
                                 </div>
-                                <span className="ml-2 font-semibold">{review.author}</span>
-                            </div>
-                            <p className="text-gray-600">{review.comment}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                </Tabs>
+            </section>
+
         </div>
     )
 }
@@ -113,8 +165,8 @@ export async function getServerSideProps({ params }) {
     const { getProduct } = await import("@/data/products")
 
     const product = getProduct(params.name.toString())
-    console.log("name", params.name.toString())
-    console.log("product", product)
+    // console.log("name", params.name.toString())
+    // console.log("product", product)
     return {
         props: {
             product
