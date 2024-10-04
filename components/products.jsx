@@ -26,14 +26,18 @@ export function ProductListing() {
                     {filteredProducts.map((product) => (
                         <div key={product.id} className="border rounded-lg md:w-96 mx-auto">
                             <div className="">
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="p-3 w-full"
-                                />
+                                <Link href={`/product/${product.name}`}>
+                                    <img
+                                        src={product.image}
+                                        alt={product.name}
+                                        className="p-3 w-full"
+                                    />
+                                </Link>
                             </div>
                             <div className="p-4">
-                                <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+                                <h3 className="text-xl font-semibold mb-2">
+                                    <Link href={`/product/${product.name}`}>{product.name}</Link>
+                                </h3>
                                 <div className="flex items-center gap-1 mb-3">
                                     <span className="text-sm text-red-500 line-through">
                                         ₹{Math.round((product.price * 1.89) / 100) * 100}
@@ -47,7 +51,7 @@ export function ProductListing() {
                                         className="w-full"
                                         variant="outline"
                                         onClick={() => addToCartHandler(product)}
-                                        >
+                                    >
                                         Add To Cart
                                     </Button>
                                     <Button

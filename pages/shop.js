@@ -29,15 +29,21 @@ export default function ShopPage() {
                 <div className="flex flex-col md:flex-row flex-wrap justify-center items-center mx-auto gap-10 mb-6">
                     {products.map((product) => (
                         <div key={product.id} className="border rounded-lg overflow-hidden shadow-lg">
-                            <img
-                                src={product.image}
-                                alt={product.name}
+                            <Link href={`/product/${product.name}`}>
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
 
-                                className="p-3 w-80"
-                            />
+                                    className="p-3 w-80"
+                                />
+                            </Link>
                             <div className="p-4">
                                 <div className="flex justify-between items-center">
-                                    <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
+                                    <h2 className="text-lg font-semibold mb-2">
+                                        <Link href={`/product/${product.name}`}>
+                                            {product.name}
+                                        </Link>
+                                    </h2>
                                     <div className="flex items-center gap-1">
                                         <span className="text-sm text-red-500 line-through">
                                             {product?.originalPrice ? `₹${product?.originalPrice ? product.originalPrice.toFixed(2) : ""}` : ""}
